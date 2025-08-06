@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code2Hire - AI Career Coach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ai.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/genai": "https://esm.sh/@google/genai@^0.12.0"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main class="chat-container">
+    <header class="chat-header">
+      <div class="logo">
+        <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#7F56D9"/>
+          <path d="M14 34V26.5M14 26.5V14L24 19L34 14V26.5M14 26.5L24 31.5L34 26.5M34 26.5V14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h1>Code2Hire</h1>
+      </div>
+    </header>
+    <div class="message-list" id="message-list" role="log" aria-live="polite">
+      <!-- Messages will be injected here -->
+    </div>
+    <form class="chat-form" id="chat-form">
+      <input type="text" id="chat-input" placeholder="Ask about interviews, resumes, and more..." autocomplete="off" aria-label="Your message">
+      <button type="submit" aria-label="Send message">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+        </svg>
+      </button>
+    </form>
+  </main>
+  <script type="module" src="index.js"></script>
+</body>
+</html>

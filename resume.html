@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LinkedIn Style Resume PDF</title>
+  <link rel="stylesheet" href="style.css" />
+
+
+</head>
+<body>
+  <div class="form-container">
+    <h2>Create Your Resume</h2>
+    <form id="resumeForm">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="text" id="headline" placeholder="Headline (e.g. Software Developer)" required />
+      <textarea id="summary" placeholder="Professional Summary" rows="4"></textarea>
+      <textarea id="experience" placeholder="Experience (e.g. Job Title, Company, Dates, Details)" rows="4"></textarea>
+      <textarea id="education" placeholder="Education (e.g. Degree, School, Year)" rows="3"></textarea>
+      <input type="text" id="skills" placeholder="Skills (comma separated)" />
+      <button type="submit">Generate PDF</button>
+    </form>
+  </div>
+
+  <!-- Hidden resume template -->
+  <div id="pdfContent" style="display: none;">
+    <div class="pdf-resume">
+      <h1 id="pdfName"></h1>
+      <h3 id="pdfHeadline"></h3>
+      <hr>
+      <h4>Summary</h4>
+      <p id="pdfSummary"></p>
+      <h4>Experience</h4>
+      <p id="pdfExperience"></p>
+      <h4>Education</h4>
+      <p id="pdfEducation"></p>
+      <h4>Skills</h4>
+      <ul id="pdfSkills"></ul>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    document.getElementById('resumeForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  // Fill PDF template with user input
+  document.getElementById('pdfName').innerText = document.getElementById('name').value;
+  document.getElementById('pdfHeadline').innerText = document.getElementById('headline').value;
+  document.getElementById('pdfSummary').innerText = document.getElementById('summary').value;
+  document.getElementById('pdfExperience').innerText = document.getElementById('experience').value;
+  document.getElementById('pdfEducation').innerText = document.getElementById('education').value;
+
+  const skills = document.getElementById('skills').value.split(',');
+  const skillsList = document.getElementById('pdfSkills');
+  skillsList.innerHTML = '';
+  skills.forEach(skill => {
+    const li = document.createElement('li');
+    li.textContent = skill.trim();
+    skillsList.appendChild(li);
+  });
+
+  // Generate PDF
+  const element = document.getElementById('pdfContent');
+  element.style.display = 'block';
+
+  html2pdf()
+    .from(element)
+    .set({
+      margin: 0.5,
+      filename: 'resume.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    })
+    .save()
+    .then(() => {
+      element.style.display = 'none'; // Hide again
+    });
+});
+
+  </script>
+</body>
+</html>
